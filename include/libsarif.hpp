@@ -1143,23 +1143,13 @@ namespace libsarif {
         virtual ~Exception() = default;
 
         private:
-        std::string description;
         std::string type;
-        bool additional_properties;
         ExceptionProperties properties;
 
         public:
-        const std::string & get_description() const { return description; }
-        std::string & get_mutable_description() { return description; }
-        void set_description(const std::string & value) { this->description = value; }
-
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const ExceptionProperties & get_properties() const { return properties; }
         ExceptionProperties & get_mutable_properties() { return properties; }
@@ -1305,23 +1295,13 @@ namespace libsarif {
         virtual ~ExternalProperties() = default;
 
         private:
-        std::string description;
         std::string type;
-        bool additional_properties;
         ExternalPropertiesProperties properties;
 
         public:
-        const std::string & get_description() const { return description; }
-        std::string & get_mutable_description() { return description; }
-        void set_description(const std::string & value) { this->description = value; }
-
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const ExternalPropertiesProperties & get_properties() const { return properties; }
         ExternalPropertiesProperties & get_mutable_properties() { return properties; }
@@ -1377,24 +1357,14 @@ namespace libsarif {
         virtual ~ExternalPropertyFileReference() = default;
 
         private:
-        std::string description;
         std::string type;
-        bool additional_properties;
         ExternalPropertyFileReferenceProperties properties;
         std::vector<Of> any_of;
 
         public:
-        const std::string & get_description() const { return description; }
-        std::string & get_mutable_description() { return description; }
-        void set_description(const std::string & value) { this->description = value; }
-
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const ExternalPropertyFileReferenceProperties & get_properties() const { return properties; }
         ExternalPropertyFileReferenceProperties & get_mutable_properties() { return properties; }
@@ -3758,7 +3728,6 @@ namespace libsarif {
         private:
         std::string description;
         std::string type;
-        bool additional_properties;
         SpecialLocationsProperties properties;
 
         public:
@@ -3769,10 +3738,6 @@ namespace libsarif {
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const SpecialLocationsProperties & get_properties() const { return properties; }
         SpecialLocationsProperties & get_mutable_properties() { return properties; }
@@ -4076,24 +4041,14 @@ namespace libsarif {
         virtual ~ThreadFlow() = default;
 
         private:
-        std::string description;
         std::string type;
-        bool additional_properties;
         ThreadFlowProperties properties;
         std::vector<std::string> required;
 
         public:
-        const std::string & get_description() const { return description; }
-        std::string & get_mutable_description() { return description; }
-        void set_description(const std::string & value) { this->description = value; }
-
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const ThreadFlowProperties & get_properties() const { return properties; }
         ThreadFlowProperties & get_mutable_properties() { return properties; }
@@ -4490,7 +4445,6 @@ namespace libsarif {
         private:
         std::string description;
         std::string type;
-        bool additional_properties;
         ToolComponentReferenceProperties properties;
 
         public:
@@ -4501,10 +4455,6 @@ namespace libsarif {
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const ToolComponentReferenceProperties & get_properties() const { return properties; }
         ToolComponentReferenceProperties & get_mutable_properties() { return properties; }
@@ -4563,7 +4513,6 @@ namespace libsarif {
         private:
         std::string description;
         std::string type;
-        bool additional_properties;
         TranslationMetadataProperties properties;
         std::vector<std::string> required;
 
@@ -4575,10 +4524,6 @@ namespace libsarif {
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const TranslationMetadataProperties & get_properties() const { return properties; }
         TranslationMetadataProperties & get_mutable_properties() { return properties; }
@@ -4729,7 +4674,6 @@ namespace libsarif {
         private:
         std::string description;
         std::string type;
-        bool additional_properties;
         WebRequestProperties properties;
 
         public:
@@ -4740,10 +4684,6 @@ namespace libsarif {
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const WebRequestProperties & get_properties() const { return properties; }
         WebRequestProperties & get_mutable_properties() { return properties; }
@@ -4812,7 +4752,6 @@ namespace libsarif {
         private:
         std::string description;
         std::string type;
-        bool additional_properties;
         WebResponseProperties properties;
 
         public:
@@ -4823,10 +4762,6 @@ namespace libsarif {
         const std::string & get_type() const { return type; }
         std::string & get_mutable_type() { return type; }
         void set_type(const std::string & value) { this->type = value; }
-
-        const bool & get_additional_properties() const { return additional_properties; }
-        bool & get_mutable_additional_properties() { return additional_properties; }
-        void set_additional_properties(const bool & value) { this->additional_properties = value; }
 
         const WebResponseProperties & get_properties() const { return properties; }
         WebResponseProperties & get_mutable_properties() { return properties; }
@@ -6143,17 +6078,13 @@ namespace nlohmann {
     }
 
     inline void from_json(const json & j, libsarif::Exception& x) {
-        x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::ExceptionProperties>());
     }
 
     inline void to_json(json & j, const libsarif::Exception & x) {
         j = json::object();
-        j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
     }
 
@@ -6218,17 +6149,13 @@ namespace nlohmann {
     }
 
     inline void from_json(const json & j, libsarif::ExternalProperties& x) {
-        x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::ExternalPropertiesProperties>());
     }
 
     inline void to_json(json & j, const libsarif::ExternalProperties & x) {
         j = json::object();
-        j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
     }
 
@@ -6257,18 +6184,14 @@ namespace nlohmann {
     }
 
     inline void from_json(const json & j, libsarif::ExternalPropertyFileReference& x) {
-        x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::ExternalPropertyFileReferenceProperties>());
         x.set_any_of(j.at("anyOf").get<std::vector<libsarif::Of>>());
     }
 
     inline void to_json(json & j, const libsarif::ExternalPropertyFileReference & x) {
         j = json::object();
-        j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
         j["anyOf"] = x.get_any_of();
     }
@@ -7412,7 +7335,6 @@ namespace nlohmann {
     inline void from_json(const json & j, libsarif::SpecialLocations& x) {
         x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::SpecialLocationsProperties>());
     }
 
@@ -7420,7 +7342,6 @@ namespace nlohmann {
         j = json::object();
         j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
     }
 
@@ -7572,18 +7493,14 @@ namespace nlohmann {
     }
 
     inline void from_json(const json & j, libsarif::ThreadFlow& x) {
-        x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::ThreadFlowProperties>());
         x.set_required(j.at("required").get<std::vector<std::string>>());
     }
 
     inline void to_json(json & j, const libsarif::ThreadFlow & x) {
         j = json::object();
-        j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
         j["required"] = x.get_required();
     }
@@ -7766,7 +7683,6 @@ namespace nlohmann {
     inline void from_json(const json & j, libsarif::ToolComponentReference& x) {
         x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::ToolComponentReferenceProperties>());
     }
 
@@ -7774,7 +7690,6 @@ namespace nlohmann {
         j = json::object();
         j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
     }
 
@@ -7802,7 +7717,6 @@ namespace nlohmann {
     inline void from_json(const json & j, libsarif::TranslationMetadata& x) {
         x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::TranslationMetadataProperties>());
         x.set_required(j.at("required").get<std::vector<std::string>>());
     }
@@ -7811,7 +7725,6 @@ namespace nlohmann {
         j = json::object();
         j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
         j["required"] = x.get_required();
     }
@@ -7882,7 +7795,6 @@ namespace nlohmann {
     inline void from_json(const json & j, libsarif::WebRequest& x) {
         x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::WebRequestProperties>());
     }
 
@@ -7890,7 +7802,6 @@ namespace nlohmann {
         j = json::object();
         j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
     }
 
@@ -7922,7 +7833,6 @@ namespace nlohmann {
     inline void from_json(const json & j, libsarif::WebResponse& x) {
         x.set_description(j.at("description").get<std::string>());
         x.set_type(j.at("type").get<std::string>());
-        x.set_additional_properties(j.at("additionalProperties").get<bool>());
         x.set_properties(j.at("properties").get<libsarif::WebResponseProperties>());
     }
 
@@ -7930,7 +7840,6 @@ namespace nlohmann {
         j = json::object();
         j["description"] = x.get_description();
         j["type"] = x.get_type();
-        j["additionalProperties"] = x.get_additional_properties();
         j["properties"] = x.get_properties();
     }
 
