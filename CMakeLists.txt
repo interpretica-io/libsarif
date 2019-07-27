@@ -11,3 +11,5 @@ set(SOURCES ${LIB_SOURCE_FILES})
 
 add_library(libsarif INTERFACE)
 target_include_directories(libsarif INTERFACE include)
+
+set(LibSarifIncludeDir ${NlohmannJsonIncludeDir} ${include})
