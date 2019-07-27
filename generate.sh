@@ -22,4 +22,5 @@ cat $1 | \
 			  --namespace libsarif \
 			  --no-boost \
 			  -l c++ \
+			  -s schema \
 			  --out include/libsarif.hpp
