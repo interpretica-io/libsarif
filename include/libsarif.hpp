@@ -4,7 +4,7 @@
 //
 //  Then include this file, and then do
 //
-//     Libsarif data = nlohmann::json::parse(jsonString);
+//     TopLevel data = nlohmann::json::parse(jsonString);
 
 #pragma once
 
@@ -4351,10 +4351,10 @@ namespace libsarif {
      * Static Analysis Results Format (SARIF) Version 2.1.0 JSON Schema: a standard format for
      * the output of static analysis tools.
      */
-    class Libsarif {
+    class TopLevel {
         public:
-        Libsarif() = default;
-        virtual ~Libsarif() = default;
+        TopLevel() = default;
+        virtual ~TopLevel() = default;
 
         private:
         std::shared_ptr<std::string> schema;
@@ -4397,8 +4397,17 @@ namespace libsarif {
         void set_version(const Version & value) { this->version = value; }
     };
 }
-
 namespace nlohmann {
+    template <typename T>
+    static bool is_obj_valid(std::shared_ptr<T> ptr) {
+        return ptr != nullptr;
+    }
+
+    template <typename T>
+    static bool is_obj_valid(T obj) {
+        return true;
+    }
+
     void from_json(const json & j, libsarif::PropertyBag & x);
     void to_json(json & j, const libsarif::PropertyBag & x);
 
@@ -4555,8 +4564,8 @@ namespace nlohmann {
     void from_json(const json & j, libsarif::Run & x);
     void to_json(json & j, const libsarif::Run & x);
 
-    void from_json(const json & j, libsarif::Libsarif & x);
-    void to_json(json & j, const libsarif::Libsarif & x);
+    void from_json(const json & j, libsarif::TopLevel & x);
+    void to_json(json & j, const libsarif::TopLevel & x);
 
     void from_json(const json & j, libsarif::Role & x);
     void to_json(json & j, const libsarif::Role & x);
@@ -4594,7 +4603,8 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::PropertyBag & x) {
         j = json::object();
-        j["tags"] = x.get_tags();
+        if (is_obj_valid(x.get_tags()))
+            j["tags"] = x.get_tags();
     }
 
     inline void from_json(const json & j, libsarif::Address& x) {
@@ -4612,16 +4622,26 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Address & x) {
         j = json::object();
-        j["absoluteAddress"] = x.get_absolute_address();
-        j["fullyQualifiedName"] = x.get_fully_qualified_name();
-        j["index"] = x.get_index();
-        j["kind"] = x.get_kind();
-        j["length"] = x.get_length();
-        j["name"] = x.get_name();
-        j["offsetFromParent"] = x.get_offset_from_parent();
-        j["parentIndex"] = x.get_parent_index();
-        j["properties"] = x.get_properties();
-        j["relativeAddress"] = x.get_relative_address();
+        if (is_obj_valid(x.get_absolute_address()))
+            j["absoluteAddress"] = x.get_absolute_address();
+        if (is_obj_valid(x.get_fully_qualified_name()))
+            j["fullyQualifiedName"] = x.get_fully_qualified_name();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_kind()))
+            j["kind"] = x.get_kind();
+        if (is_obj_valid(x.get_length()))
+            j["length"] = x.get_length();
+        if (is_obj_valid(x.get_name()))
+            j["name"] = x.get_name();
+        if (is_obj_valid(x.get_offset_from_parent()))
+            j["offsetFromParent"] = x.get_offset_from_parent();
+        if (is_obj_valid(x.get_parent_index()))
+            j["parentIndex"] = x.get_parent_index();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_relative_address()))
+            j["relativeAddress"] = x.get_relative_address();
     }
 
     inline void from_json(const json & j, libsarif::MultiformatMessageString& x) {
@@ -4632,9 +4652,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::MultiformatMessageString & x) {
         j = json::object();
-        j["markdown"] = x.get_markdown();
-        j["properties"] = x.get_properties();
-        j["text"] = x.get_text();
+        if (is_obj_valid(x.get_markdown()))
+            j["markdown"] = x.get_markdown();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_text()))
+            j["text"] = x.get_text();
     }
 
     inline void from_json(const json & j, libsarif::ArtifactContent& x) {
@@ -4646,10 +4669,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ArtifactContent & x) {
         j = json::object();
-        j["binary"] = x.get_binary();
-        j["properties"] = x.get_properties();
-        j["rendered"] = x.get_rendered();
-        j["text"] = x.get_text();
+        if (is_obj_valid(x.get_binary()))
+            j["binary"] = x.get_binary();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_rendered()))
+            j["rendered"] = x.get_rendered();
+        if (is_obj_valid(x.get_text()))
+            j["text"] = x.get_text();
     }
 
     inline void from_json(const json & j, libsarif::Message& x) {
@@ -4662,11 +4689,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Message & x) {
         j = json::object();
-        j["arguments"] = x.get_arguments();
-        j["id"] = x.get_id();
-        j["markdown"] = x.get_markdown();
-        j["properties"] = x.get_properties();
-        j["text"] = x.get_text();
+        if (is_obj_valid(x.get_arguments()))
+            j["arguments"] = x.get_arguments();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_markdown()))
+            j["markdown"] = x.get_markdown();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_text()))
+            j["text"] = x.get_text();
     }
 
     inline void from_json(const json & j, libsarif::ArtifactLocation& x) {
@@ -4679,11 +4711,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ArtifactLocation & x) {
         j = json::object();
-        j["description"] = x.get_description();
-        j["index"] = x.get_index();
-        j["properties"] = x.get_properties();
-        j["uri"] = x.get_uri();
-        j["uriBaseId"] = x.get_uri_base_id();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_uri()))
+            j["uri"] = x.get_uri();
+        if (is_obj_valid(x.get_uri_base_id()))
+            j["uriBaseId"] = x.get_uri_base_id();
     }
 
     inline void from_json(const json & j, libsarif::Artifact& x) {
@@ -4704,19 +4741,32 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Artifact & x) {
         j = json::object();
-        j["contents"] = x.get_contents();
-        j["description"] = x.get_description();
-        j["encoding"] = x.get_encoding();
-        j["hashes"] = x.get_hashes();
-        j["lastModifiedTimeUtc"] = x.get_last_modified_time_utc();
-        j["length"] = x.get_length();
-        j["location"] = x.get_location();
-        j["mimeType"] = x.get_mime_type();
-        j["offset"] = x.get_offset();
-        j["parentIndex"] = x.get_parent_index();
-        j["properties"] = x.get_properties();
-        j["roles"] = x.get_roles();
-        j["sourceLanguage"] = x.get_source_language();
+        if (is_obj_valid(x.get_contents()))
+            j["contents"] = x.get_contents();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_encoding()))
+            j["encoding"] = x.get_encoding();
+        if (is_obj_valid(x.get_hashes()))
+            j["hashes"] = x.get_hashes();
+        if (is_obj_valid(x.get_last_modified_time_utc()))
+            j["lastModifiedTimeUtc"] = x.get_last_modified_time_utc();
+        if (is_obj_valid(x.get_length()))
+            j["length"] = x.get_length();
+        if (is_obj_valid(x.get_location()))
+            j["location"] = x.get_location();
+        if (is_obj_valid(x.get_mime_type()))
+            j["mimeType"] = x.get_mime_type();
+        if (is_obj_valid(x.get_offset()))
+            j["offset"] = x.get_offset();
+        if (is_obj_valid(x.get_parent_index()))
+            j["parentIndex"] = x.get_parent_index();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_roles()))
+            j["roles"] = x.get_roles();
+        if (is_obj_valid(x.get_source_language()))
+            j["sourceLanguage"] = x.get_source_language();
     }
 
     inline void from_json(const json & j, libsarif::ReportingConfiguration& x) {
@@ -4729,11 +4779,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ReportingConfiguration & x) {
         j = json::object();
-        j["enabled"] = x.get_enabled();
-        j["level"] = x.get_level();
-        j["parameters"] = x.get_parameters();
-        j["properties"] = x.get_properties();
-        j["rank"] = x.get_rank();
+        if (is_obj_valid(x.get_enabled()))
+            j["enabled"] = x.get_enabled();
+        if (is_obj_valid(x.get_level()))
+            j["level"] = x.get_level();
+        if (is_obj_valid(x.get_parameters()))
+            j["parameters"] = x.get_parameters();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_rank()))
+            j["rank"] = x.get_rank();
     }
 
     inline void from_json(const json & j, libsarif::ToolComponentReference& x) {
@@ -4745,10 +4800,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ToolComponentReference & x) {
         j = json::object();
-        j["guid"] = x.get_guid();
-        j["index"] = x.get_index();
-        j["name"] = x.get_name();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_name()))
+            j["name"] = x.get_name();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::ReportingDescriptorReference& x) {
@@ -4761,11 +4820,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ReportingDescriptorReference & x) {
         j = json::object();
-        j["guid"] = x.get_guid();
-        j["id"] = x.get_id();
-        j["index"] = x.get_index();
-        j["properties"] = x.get_properties();
-        j["toolComponent"] = x.get_tool_component();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_tool_component()))
+            j["toolComponent"] = x.get_tool_component();
     }
 
     inline void from_json(const json & j, libsarif::ConfigurationOverride& x) {
@@ -4776,9 +4840,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ConfigurationOverride & x) {
         j = json::object();
-        j["configuration"] = x.get_configuration();
-        j["descriptor"] = x.get_descriptor();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_configuration()))
+            j["configuration"] = x.get_configuration();
+        if (is_obj_valid(x.get_descriptor()))
+            j["descriptor"] = x.get_descriptor();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::Region& x) {
@@ -4798,18 +4865,30 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Region & x) {
         j = json::object();
-        j["byteLength"] = x.get_byte_length();
-        j["byteOffset"] = x.get_byte_offset();
-        j["charLength"] = x.get_char_length();
-        j["charOffset"] = x.get_char_offset();
-        j["endColumn"] = x.get_end_column();
-        j["endLine"] = x.get_end_line();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
-        j["snippet"] = x.get_snippet();
-        j["sourceLanguage"] = x.get_source_language();
-        j["startColumn"] = x.get_start_column();
-        j["startLine"] = x.get_start_line();
+        if (is_obj_valid(x.get_byte_length()))
+            j["byteLength"] = x.get_byte_length();
+        if (is_obj_valid(x.get_byte_offset()))
+            j["byteOffset"] = x.get_byte_offset();
+        if (is_obj_valid(x.get_char_length()))
+            j["charLength"] = x.get_char_length();
+        if (is_obj_valid(x.get_char_offset()))
+            j["charOffset"] = x.get_char_offset();
+        if (is_obj_valid(x.get_end_column()))
+            j["endColumn"] = x.get_end_column();
+        if (is_obj_valid(x.get_end_line()))
+            j["endLine"] = x.get_end_line();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_snippet()))
+            j["snippet"] = x.get_snippet();
+        if (is_obj_valid(x.get_source_language()))
+            j["sourceLanguage"] = x.get_source_language();
+        if (is_obj_valid(x.get_start_column()))
+            j["startColumn"] = x.get_start_column();
+        if (is_obj_valid(x.get_start_line()))
+            j["startLine"] = x.get_start_line();
     }
 
     inline void from_json(const json & j, libsarif::LogicalLocation& x) {
@@ -4824,13 +4903,20 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::LogicalLocation & x) {
         j = json::object();
-        j["decoratedName"] = x.get_decorated_name();
-        j["fullyQualifiedName"] = x.get_fully_qualified_name();
-        j["index"] = x.get_index();
-        j["kind"] = x.get_kind();
-        j["name"] = x.get_name();
-        j["parentIndex"] = x.get_parent_index();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_decorated_name()))
+            j["decoratedName"] = x.get_decorated_name();
+        if (is_obj_valid(x.get_fully_qualified_name()))
+            j["fullyQualifiedName"] = x.get_fully_qualified_name();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_kind()))
+            j["kind"] = x.get_kind();
+        if (is_obj_valid(x.get_name()))
+            j["name"] = x.get_name();
+        if (is_obj_valid(x.get_parent_index()))
+            j["parentIndex"] = x.get_parent_index();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::PhysicalLocation& x) {
@@ -4843,11 +4929,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::PhysicalLocation & x) {
         j = json::object();
-        j["address"] = x.get_address();
-        j["artifactLocation"] = x.get_artifact_location();
-        j["contextRegion"] = x.get_context_region();
-        j["properties"] = x.get_properties();
-        j["region"] = x.get_region();
+        if (is_obj_valid(x.get_address()))
+            j["address"] = x.get_address();
+        if (is_obj_valid(x.get_artifact_location()))
+            j["artifactLocation"] = x.get_artifact_location();
+        if (is_obj_valid(x.get_context_region()))
+            j["contextRegion"] = x.get_context_region();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_region()))
+            j["region"] = x.get_region();
     }
 
     inline void from_json(const json & j, libsarif::LocationRelationship& x) {
@@ -4859,10 +4950,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::LocationRelationship & x) {
         j = json::object();
-        j["description"] = x.get_description();
-        j["kinds"] = x.get_kinds();
-        j["properties"] = x.get_properties();
-        j["target"] = x.get_target();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_kinds()))
+            j["kinds"] = x.get_kinds();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_target()))
+            j["target"] = x.get_target();
     }
 
     inline void from_json(const json & j, libsarif::Location& x) {
@@ -4877,13 +4972,20 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Location & x) {
         j = json::object();
-        j["annotations"] = x.get_annotations();
-        j["id"] = x.get_id();
-        j["logicalLocations"] = x.get_logical_locations();
-        j["message"] = x.get_message();
-        j["physicalLocation"] = x.get_physical_location();
-        j["properties"] = x.get_properties();
-        j["relationships"] = x.get_relationships();
+        if (is_obj_valid(x.get_annotations()))
+            j["annotations"] = x.get_annotations();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_logical_locations()))
+            j["logicalLocations"] = x.get_logical_locations();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_physical_location()))
+            j["physicalLocation"] = x.get_physical_location();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_relationships()))
+            j["relationships"] = x.get_relationships();
     }
 
     inline void from_json(const json & j, libsarif::StackFrame& x) {
@@ -4896,11 +4998,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::StackFrame & x) {
         j = json::object();
-        j["location"] = x.get_location();
-        j["module"] = x.get_stack_frame_module();
-        j["parameters"] = x.get_parameters();
-        j["properties"] = x.get_properties();
-        j["threadId"] = x.get_thread_id();
+        if (is_obj_valid(x.get_location()))
+            j["location"] = x.get_location();
+        if (is_obj_valid(x.get_stack_frame_module()))
+            j["module"] = x.get_stack_frame_module();
+        if (is_obj_valid(x.get_parameters()))
+            j["parameters"] = x.get_parameters();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_thread_id()))
+            j["threadId"] = x.get_thread_id();
     }
 
     inline void from_json(const json & j, libsarif::Stack& x) {
@@ -4911,9 +5018,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Stack & x) {
         j = json::object();
-        j["frames"] = x.get_frames();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_frames()))
+            j["frames"] = x.get_frames();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::Exception& x) {
@@ -4926,11 +5036,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Exception & x) {
         j = json::object();
-        j["innerExceptions"] = x.get_inner_exceptions();
-        j["kind"] = x.get_kind();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
-        j["stack"] = x.get_stack();
+        if (is_obj_valid(x.get_inner_exceptions()))
+            j["innerExceptions"] = x.get_inner_exceptions();
+        if (is_obj_valid(x.get_kind()))
+            j["kind"] = x.get_kind();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_stack()))
+            j["stack"] = x.get_stack();
     }
 
     inline void from_json(const json & j, libsarif::Notification& x) {
@@ -4947,15 +5062,24 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Notification & x) {
         j = json::object();
-        j["associatedRule"] = x.get_associated_rule();
-        j["descriptor"] = x.get_descriptor();
-        j["exception"] = x.get_exception();
-        j["level"] = x.get_level();
-        j["locations"] = x.get_locations();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
-        j["threadId"] = x.get_thread_id();
-        j["timeUtc"] = x.get_time_utc();
+        if (is_obj_valid(x.get_associated_rule()))
+            j["associatedRule"] = x.get_associated_rule();
+        if (is_obj_valid(x.get_descriptor()))
+            j["descriptor"] = x.get_descriptor();
+        if (is_obj_valid(x.get_exception()))
+            j["exception"] = x.get_exception();
+        if (is_obj_valid(x.get_level()))
+            j["level"] = x.get_level();
+        if (is_obj_valid(x.get_locations()))
+            j["locations"] = x.get_locations();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_thread_id()))
+            j["threadId"] = x.get_thread_id();
+        if (is_obj_valid(x.get_time_utc()))
+            j["timeUtc"] = x.get_time_utc();
     }
 
     inline void from_json(const json & j, libsarif::Invocation& x) {
@@ -4989,32 +5113,58 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Invocation & x) {
         j = json::object();
-        j["account"] = x.get_account();
-        j["arguments"] = x.get_arguments();
-        j["commandLine"] = x.get_command_line();
-        j["endTimeUtc"] = x.get_end_time_utc();
-        j["environmentVariables"] = x.get_environment_variables();
-        j["executableLocation"] = x.get_executable_location();
-        j["executionSuccessful"] = x.get_execution_successful();
-        j["exitCode"] = x.get_exit_code();
-        j["exitCodeDescription"] = x.get_exit_code_description();
-        j["exitSignalName"] = x.get_exit_signal_name();
-        j["exitSignalNumber"] = x.get_exit_signal_number();
-        j["machine"] = x.get_machine();
-        j["notificationConfigurationOverrides"] = x.get_notification_configuration_overrides();
-        j["processId"] = x.get_process_id();
-        j["processStartFailureMessage"] = x.get_process_start_failure_message();
-        j["properties"] = x.get_properties();
-        j["responseFiles"] = x.get_response_files();
-        j["ruleConfigurationOverrides"] = x.get_rule_configuration_overrides();
-        j["startTimeUtc"] = x.get_start_time_utc();
-        j["stderr"] = x.get_stderr();
-        j["stdin"] = x.get_stdin();
-        j["stdout"] = x.get_stdout();
-        j["stdoutStderr"] = x.get_stdout_stderr();
-        j["toolConfigurationNotifications"] = x.get_tool_configuration_notifications();
-        j["toolExecutionNotifications"] = x.get_tool_execution_notifications();
-        j["workingDirectory"] = x.get_working_directory();
+        if (is_obj_valid(x.get_account()))
+            j["account"] = x.get_account();
+        if (is_obj_valid(x.get_arguments()))
+            j["arguments"] = x.get_arguments();
+        if (is_obj_valid(x.get_command_line()))
+            j["commandLine"] = x.get_command_line();
+        if (is_obj_valid(x.get_end_time_utc()))
+            j["endTimeUtc"] = x.get_end_time_utc();
+        if (is_obj_valid(x.get_environment_variables()))
+            j["environmentVariables"] = x.get_environment_variables();
+        if (is_obj_valid(x.get_executable_location()))
+            j["executableLocation"] = x.get_executable_location();
+        if (is_obj_valid(x.get_execution_successful()))
+            j["executionSuccessful"] = x.get_execution_successful();
+        if (is_obj_valid(x.get_exit_code()))
+            j["exitCode"] = x.get_exit_code();
+        if (is_obj_valid(x.get_exit_code_description()))
+            j["exitCodeDescription"] = x.get_exit_code_description();
+        if (is_obj_valid(x.get_exit_signal_name()))
+            j["exitSignalName"] = x.get_exit_signal_name();
+        if (is_obj_valid(x.get_exit_signal_number()))
+            j["exitSignalNumber"] = x.get_exit_signal_number();
+        if (is_obj_valid(x.get_machine()))
+            j["machine"] = x.get_machine();
+        if (is_obj_valid(x.get_notification_configuration_overrides()))
+            j["notificationConfigurationOverrides"] = x.get_notification_configuration_overrides();
+        if (is_obj_valid(x.get_process_id()))
+            j["processId"] = x.get_process_id();
+        if (is_obj_valid(x.get_process_start_failure_message()))
+            j["processStartFailureMessage"] = x.get_process_start_failure_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_response_files()))
+            j["responseFiles"] = x.get_response_files();
+        if (is_obj_valid(x.get_rule_configuration_overrides()))
+            j["ruleConfigurationOverrides"] = x.get_rule_configuration_overrides();
+        if (is_obj_valid(x.get_start_time_utc()))
+            j["startTimeUtc"] = x.get_start_time_utc();
+        if (is_obj_valid(x.get_stderr()))
+            j["stderr"] = x.get_stderr();
+        if (is_obj_valid(x.get_stdin()))
+            j["stdin"] = x.get_stdin();
+        if (is_obj_valid(x.get_stdout()))
+            j["stdout"] = x.get_stdout();
+        if (is_obj_valid(x.get_stdout_stderr()))
+            j["stdoutStderr"] = x.get_stdout_stderr();
+        if (is_obj_valid(x.get_tool_configuration_notifications()))
+            j["toolConfigurationNotifications"] = x.get_tool_configuration_notifications();
+        if (is_obj_valid(x.get_tool_execution_notifications()))
+            j["toolExecutionNotifications"] = x.get_tool_execution_notifications();
+        if (is_obj_valid(x.get_working_directory()))
+            j["workingDirectory"] = x.get_working_directory();
     }
 
     inline void from_json(const json & j, libsarif::ReportingDescriptorRelationship& x) {
@@ -5026,10 +5176,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ReportingDescriptorRelationship & x) {
         j = json::object();
-        j["description"] = x.get_description();
-        j["kinds"] = x.get_kinds();
-        j["properties"] = x.get_properties();
-        j["target"] = x.get_target();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_kinds()))
+            j["kinds"] = x.get_kinds();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_target()))
+            j["target"] = x.get_target();
     }
 
     inline void from_json(const json & j, libsarif::ReportingDescriptor& x) {
@@ -5051,20 +5205,34 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ReportingDescriptor & x) {
         j = json::object();
-        j["defaultConfiguration"] = x.get_default_configuration();
-        j["deprecatedGuids"] = x.get_deprecated_guids();
-        j["deprecatedIds"] = x.get_deprecated_ids();
-        j["deprecatedNames"] = x.get_deprecated_names();
-        j["fullDescription"] = x.get_full_description();
-        j["guid"] = x.get_guid();
-        j["help"] = x.get_help();
-        j["helpUri"] = x.get_help_uri();
-        j["id"] = x.get_id();
-        j["messageStrings"] = x.get_message_strings();
-        j["name"] = x.get_name();
-        j["properties"] = x.get_properties();
-        j["relationships"] = x.get_relationships();
-        j["shortDescription"] = x.get_short_description();
+        if (is_obj_valid(x.get_default_configuration()))
+            j["defaultConfiguration"] = x.get_default_configuration();
+        if (is_obj_valid(x.get_deprecated_guids()))
+            j["deprecatedGuids"] = x.get_deprecated_guids();
+        if (is_obj_valid(x.get_deprecated_ids()))
+            j["deprecatedIds"] = x.get_deprecated_ids();
+        if (is_obj_valid(x.get_deprecated_names()))
+            j["deprecatedNames"] = x.get_deprecated_names();
+        if (is_obj_valid(x.get_full_description()))
+            j["fullDescription"] = x.get_full_description();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_help()))
+            j["help"] = x.get_help();
+        if (is_obj_valid(x.get_help_uri()))
+            j["helpUri"] = x.get_help_uri();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_message_strings()))
+            j["messageStrings"] = x.get_message_strings();
+        if (is_obj_valid(x.get_name()))
+            j["name"] = x.get_name();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_relationships()))
+            j["relationships"] = x.get_relationships();
+        if (is_obj_valid(x.get_short_description()))
+            j["shortDescription"] = x.get_short_description();
     }
 
     inline void from_json(const json & j, libsarif::TranslationMetadata& x) {
@@ -5079,13 +5247,20 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::TranslationMetadata & x) {
         j = json::object();
-        j["downloadUri"] = x.get_download_uri();
-        j["fullDescription"] = x.get_full_description();
-        j["fullName"] = x.get_full_name();
-        j["informationUri"] = x.get_information_uri();
-        j["name"] = x.get_name();
-        j["properties"] = x.get_properties();
-        j["shortDescription"] = x.get_short_description();
+        if (is_obj_valid(x.get_download_uri()))
+            j["downloadUri"] = x.get_download_uri();
+        if (is_obj_valid(x.get_full_description()))
+            j["fullDescription"] = x.get_full_description();
+        if (is_obj_valid(x.get_full_name()))
+            j["fullName"] = x.get_full_name();
+        if (is_obj_valid(x.get_information_uri()))
+            j["informationUri"] = x.get_information_uri();
+        if (is_obj_valid(x.get_name()))
+            j["name"] = x.get_name();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_short_description()))
+            j["shortDescription"] = x.get_short_description();
     }
 
     inline void from_json(const json & j, libsarif::ToolComponent& x) {
@@ -5121,34 +5296,62 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ToolComponent & x) {
         j = json::object();
-        j["associatedComponent"] = x.get_associated_component();
-        j["contents"] = x.get_contents();
-        j["dottedQuadFileVersion"] = x.get_dotted_quad_file_version();
-        j["downloadUri"] = x.get_download_uri();
-        j["fullDescription"] = x.get_full_description();
-        j["fullName"] = x.get_full_name();
-        j["globalMessageStrings"] = x.get_global_message_strings();
-        j["guid"] = x.get_guid();
-        j["informationUri"] = x.get_information_uri();
-        j["isComprehensive"] = x.get_is_comprehensive();
-        j["language"] = x.get_language();
-        j["localizedDataSemanticVersion"] = x.get_localized_data_semantic_version();
-        j["locations"] = x.get_locations();
-        j["minimumRequiredLocalizedDataSemanticVersion"] = x.get_minimum_required_localized_data_semantic_version();
-        j["name"] = x.get_name();
-        j["notifications"] = x.get_notifications();
-        j["organization"] = x.get_organization();
-        j["product"] = x.get_product();
-        j["productSuite"] = x.get_product_suite();
-        j["properties"] = x.get_properties();
-        j["releaseDateUtc"] = x.get_release_date_utc();
-        j["rules"] = x.get_rules();
-        j["semanticVersion"] = x.get_semantic_version();
-        j["shortDescription"] = x.get_short_description();
-        j["supportedTaxonomies"] = x.get_supported_taxonomies();
-        j["taxa"] = x.get_taxa();
-        j["translationMetadata"] = x.get_translation_metadata();
-        j["version"] = x.get_version();
+        if (is_obj_valid(x.get_associated_component()))
+            j["associatedComponent"] = x.get_associated_component();
+        if (is_obj_valid(x.get_contents()))
+            j["contents"] = x.get_contents();
+        if (is_obj_valid(x.get_dotted_quad_file_version()))
+            j["dottedQuadFileVersion"] = x.get_dotted_quad_file_version();
+        if (is_obj_valid(x.get_download_uri()))
+            j["downloadUri"] = x.get_download_uri();
+        if (is_obj_valid(x.get_full_description()))
+            j["fullDescription"] = x.get_full_description();
+        if (is_obj_valid(x.get_full_name()))
+            j["fullName"] = x.get_full_name();
+        if (is_obj_valid(x.get_global_message_strings()))
+            j["globalMessageStrings"] = x.get_global_message_strings();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_information_uri()))
+            j["informationUri"] = x.get_information_uri();
+        if (is_obj_valid(x.get_is_comprehensive()))
+            j["isComprehensive"] = x.get_is_comprehensive();
+        if (is_obj_valid(x.get_language()))
+            j["language"] = x.get_language();
+        if (is_obj_valid(x.get_localized_data_semantic_version()))
+            j["localizedDataSemanticVersion"] = x.get_localized_data_semantic_version();
+        if (is_obj_valid(x.get_locations()))
+            j["locations"] = x.get_locations();
+        if (is_obj_valid(x.get_minimum_required_localized_data_semantic_version()))
+            j["minimumRequiredLocalizedDataSemanticVersion"] = x.get_minimum_required_localized_data_semantic_version();
+        if (is_obj_valid(x.get_name()))
+            j["name"] = x.get_name();
+        if (is_obj_valid(x.get_notifications()))
+            j["notifications"] = x.get_notifications();
+        if (is_obj_valid(x.get_organization()))
+            j["organization"] = x.get_organization();
+        if (is_obj_valid(x.get_product()))
+            j["product"] = x.get_product();
+        if (is_obj_valid(x.get_product_suite()))
+            j["productSuite"] = x.get_product_suite();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_release_date_utc()))
+            j["releaseDateUtc"] = x.get_release_date_utc();
+        if (is_obj_valid(x.get_rules()))
+            j["rules"] = x.get_rules();
+        if (is_obj_valid(x.get_semantic_version()))
+            j["semanticVersion"] = x.get_semantic_version();
+        if (is_obj_valid(x.get_short_description()))
+            j["shortDescription"] = x.get_short_description();
+        if (is_obj_valid(x.get_supported_taxonomies()))
+            j["supportedTaxonomies"] = x.get_supported_taxonomies();
+        if (is_obj_valid(x.get_taxa()))
+            j["taxa"] = x.get_taxa();
+        if (is_obj_valid(x.get_translation_metadata()))
+            j["translationMetadata"] = x.get_translation_metadata();
+        if (is_obj_valid(x.get_version()))
+            j["version"] = x.get_version();
     }
 
     inline void from_json(const json & j, libsarif::Tool& x) {
@@ -5159,9 +5362,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Tool & x) {
         j = json::object();
-        j["driver"] = x.get_driver();
-        j["extensions"] = x.get_extensions();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_driver()))
+            j["driver"] = x.get_driver();
+        if (is_obj_valid(x.get_extensions()))
+            j["extensions"] = x.get_extensions();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::Conversion& x) {
@@ -5173,10 +5379,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Conversion & x) {
         j = json::object();
-        j["analysisToolLogFiles"] = x.get_analysis_tool_log_files();
-        j["invocation"] = x.get_invocation();
-        j["properties"] = x.get_properties();
-        j["tool"] = x.get_tool();
+        if (is_obj_valid(x.get_analysis_tool_log_files()))
+            j["analysisToolLogFiles"] = x.get_analysis_tool_log_files();
+        if (is_obj_valid(x.get_invocation()))
+            j["invocation"] = x.get_invocation();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_tool()))
+            j["tool"] = x.get_tool();
     }
 
     inline void from_json(const json & j, libsarif::Edge& x) {
@@ -5189,11 +5399,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Edge & x) {
         j = json::object();
-        j["id"] = x.get_id();
-        j["label"] = x.get_label();
-        j["properties"] = x.get_properties();
-        j["sourceNodeId"] = x.get_source_node_id();
-        j["targetNodeId"] = x.get_target_node_id();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_label()))
+            j["label"] = x.get_label();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_source_node_id()))
+            j["sourceNodeId"] = x.get_source_node_id();
+        if (is_obj_valid(x.get_target_node_id()))
+            j["targetNodeId"] = x.get_target_node_id();
     }
 
     inline void from_json(const json & j, libsarif::Node& x) {
@@ -5206,11 +5421,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Node & x) {
         j = json::object();
-        j["children"] = x.get_children();
-        j["id"] = x.get_id();
-        j["label"] = x.get_label();
-        j["location"] = x.get_location();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_children()))
+            j["children"] = x.get_children();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_label()))
+            j["label"] = x.get_label();
+        if (is_obj_valid(x.get_location()))
+            j["location"] = x.get_location();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::Graph& x) {
@@ -5222,10 +5442,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Graph & x) {
         j = json::object();
-        j["description"] = x.get_description();
-        j["edges"] = x.get_edges();
-        j["nodes"] = x.get_nodes();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_edges()))
+            j["edges"] = x.get_edges();
+        if (is_obj_valid(x.get_nodes()))
+            j["nodes"] = x.get_nodes();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::Rectangle& x) {
@@ -5239,12 +5463,18 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Rectangle & x) {
         j = json::object();
-        j["bottom"] = x.get_bottom();
-        j["left"] = x.get_left();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
-        j["right"] = x.get_right();
-        j["top"] = x.get_top();
+        if (is_obj_valid(x.get_bottom()))
+            j["bottom"] = x.get_bottom();
+        if (is_obj_valid(x.get_left()))
+            j["left"] = x.get_left();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_right()))
+            j["right"] = x.get_right();
+        if (is_obj_valid(x.get_top()))
+            j["top"] = x.get_top();
     }
 
     inline void from_json(const json & j, libsarif::Attachment& x) {
@@ -5257,11 +5487,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Attachment & x) {
         j = json::object();
-        j["artifactLocation"] = x.get_artifact_location();
-        j["description"] = x.get_description();
-        j["properties"] = x.get_properties();
-        j["rectangles"] = x.get_rectangles();
-        j["regions"] = x.get_regions();
+        if (is_obj_valid(x.get_artifact_location()))
+            j["artifactLocation"] = x.get_artifact_location();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_rectangles()))
+            j["rectangles"] = x.get_rectangles();
+        if (is_obj_valid(x.get_regions()))
+            j["regions"] = x.get_regions();
     }
 
     inline void from_json(const json & j, libsarif::WebRequest& x) {
@@ -5278,15 +5513,24 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::WebRequest & x) {
         j = json::object();
-        j["body"] = x.get_body();
-        j["headers"] = x.get_headers();
-        j["index"] = x.get_index();
-        j["method"] = x.get_method();
-        j["parameters"] = x.get_parameters();
-        j["properties"] = x.get_properties();
-        j["protocol"] = x.get_protocol();
-        j["target"] = x.get_target();
-        j["version"] = x.get_version();
+        if (is_obj_valid(x.get_body()))
+            j["body"] = x.get_body();
+        if (is_obj_valid(x.get_headers()))
+            j["headers"] = x.get_headers();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_method()))
+            j["method"] = x.get_method();
+        if (is_obj_valid(x.get_parameters()))
+            j["parameters"] = x.get_parameters();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_protocol()))
+            j["protocol"] = x.get_protocol();
+        if (is_obj_valid(x.get_target()))
+            j["target"] = x.get_target();
+        if (is_obj_valid(x.get_version()))
+            j["version"] = x.get_version();
     }
 
     inline void from_json(const json & j, libsarif::WebResponse& x) {
@@ -5303,15 +5547,24 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::WebResponse & x) {
         j = json::object();
-        j["body"] = x.get_body();
-        j["headers"] = x.get_headers();
-        j["index"] = x.get_index();
-        j["noResponseReceived"] = x.get_no_response_received();
-        j["properties"] = x.get_properties();
-        j["protocol"] = x.get_protocol();
-        j["reasonPhrase"] = x.get_reason_phrase();
-        j["statusCode"] = x.get_status_code();
-        j["version"] = x.get_version();
+        if (is_obj_valid(x.get_body()))
+            j["body"] = x.get_body();
+        if (is_obj_valid(x.get_headers()))
+            j["headers"] = x.get_headers();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_no_response_received()))
+            j["noResponseReceived"] = x.get_no_response_received();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_protocol()))
+            j["protocol"] = x.get_protocol();
+        if (is_obj_valid(x.get_reason_phrase()))
+            j["reasonPhrase"] = x.get_reason_phrase();
+        if (is_obj_valid(x.get_status_code()))
+            j["statusCode"] = x.get_status_code();
+        if (is_obj_valid(x.get_version()))
+            j["version"] = x.get_version();
     }
 
     inline void from_json(const json & j, libsarif::ThreadFlowLocation& x) {
@@ -5333,20 +5586,34 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ThreadFlowLocation & x) {
         j = json::object();
-        j["executionOrder"] = x.get_execution_order();
-        j["executionTimeUtc"] = x.get_execution_time_utc();
-        j["importance"] = x.get_importance();
-        j["index"] = x.get_index();
-        j["kinds"] = x.get_kinds();
-        j["location"] = x.get_location();
-        j["module"] = x.get_thread_flow_location_module();
-        j["nestingLevel"] = x.get_nesting_level();
-        j["properties"] = x.get_properties();
-        j["stack"] = x.get_stack();
-        j["state"] = x.get_state();
-        j["taxa"] = x.get_taxa();
-        j["webRequest"] = x.get_web_request();
-        j["webResponse"] = x.get_web_response();
+        if (is_obj_valid(x.get_execution_order()))
+            j["executionOrder"] = x.get_execution_order();
+        if (is_obj_valid(x.get_execution_time_utc()))
+            j["executionTimeUtc"] = x.get_execution_time_utc();
+        if (is_obj_valid(x.get_importance()))
+            j["importance"] = x.get_importance();
+        if (is_obj_valid(x.get_index()))
+            j["index"] = x.get_index();
+        if (is_obj_valid(x.get_kinds()))
+            j["kinds"] = x.get_kinds();
+        if (is_obj_valid(x.get_location()))
+            j["location"] = x.get_location();
+        if (is_obj_valid(x.get_thread_flow_location_module()))
+            j["module"] = x.get_thread_flow_location_module();
+        if (is_obj_valid(x.get_nesting_level()))
+            j["nestingLevel"] = x.get_nesting_level();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_stack()))
+            j["stack"] = x.get_stack();
+        if (is_obj_valid(x.get_state()))
+            j["state"] = x.get_state();
+        if (is_obj_valid(x.get_taxa()))
+            j["taxa"] = x.get_taxa();
+        if (is_obj_valid(x.get_web_request()))
+            j["webRequest"] = x.get_web_request();
+        if (is_obj_valid(x.get_web_response()))
+            j["webResponse"] = x.get_web_response();
     }
 
     inline void from_json(const json & j, libsarif::ThreadFlow& x) {
@@ -5360,12 +5627,18 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ThreadFlow & x) {
         j = json::object();
-        j["id"] = x.get_id();
-        j["immutableState"] = x.get_immutable_state();
-        j["initialState"] = x.get_initial_state();
-        j["locations"] = x.get_locations();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_immutable_state()))
+            j["immutableState"] = x.get_immutable_state();
+        if (is_obj_valid(x.get_initial_state()))
+            j["initialState"] = x.get_initial_state();
+        if (is_obj_valid(x.get_locations()))
+            j["locations"] = x.get_locations();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::CodeFlow& x) {
@@ -5376,9 +5649,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::CodeFlow & x) {
         j = json::object();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
-        j["threadFlows"] = x.get_thread_flows();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_thread_flows()))
+            j["threadFlows"] = x.get_thread_flows();
     }
 
     inline void from_json(const json & j, libsarif::Replacement& x) {
@@ -5389,9 +5665,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Replacement & x) {
         j = json::object();
-        j["deletedRegion"] = x.get_deleted_region();
-        j["insertedContent"] = x.get_inserted_content();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_deleted_region()))
+            j["deletedRegion"] = x.get_deleted_region();
+        if (is_obj_valid(x.get_inserted_content()))
+            j["insertedContent"] = x.get_inserted_content();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::ArtifactChange& x) {
@@ -5402,9 +5681,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ArtifactChange & x) {
         j = json::object();
-        j["artifactLocation"] = x.get_artifact_location();
-        j["properties"] = x.get_properties();
-        j["replacements"] = x.get_replacements();
+        if (is_obj_valid(x.get_artifact_location()))
+            j["artifactLocation"] = x.get_artifact_location();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_replacements()))
+            j["replacements"] = x.get_replacements();
     }
 
     inline void from_json(const json & j, libsarif::Fix& x) {
@@ -5415,9 +5697,12 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Fix & x) {
         j = json::object();
-        j["artifactChanges"] = x.get_artifact_changes();
-        j["description"] = x.get_description();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_artifact_changes()))
+            j["artifactChanges"] = x.get_artifact_changes();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::EdgeTraversal& x) {
@@ -5430,11 +5715,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::EdgeTraversal & x) {
         j = json::object();
-        j["edgeId"] = x.get_edge_id();
-        j["finalState"] = x.get_final_state();
-        j["message"] = x.get_message();
-        j["properties"] = x.get_properties();
-        j["stepOverEdgeCount"] = x.get_step_over_edge_count();
+        if (is_obj_valid(x.get_edge_id()))
+            j["edgeId"] = x.get_edge_id();
+        if (is_obj_valid(x.get_final_state()))
+            j["finalState"] = x.get_final_state();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_step_over_edge_count()))
+            j["stepOverEdgeCount"] = x.get_step_over_edge_count();
     }
 
     inline void from_json(const json & j, libsarif::GraphTraversal& x) {
@@ -5449,13 +5739,20 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::GraphTraversal & x) {
         j = json::object();
-        j["description"] = x.get_description();
-        j["edgeTraversals"] = x.get_edge_traversals();
-        j["immutableState"] = x.get_immutable_state();
-        j["initialState"] = x.get_initial_state();
-        j["properties"] = x.get_properties();
-        j["resultGraphIndex"] = x.get_result_graph_index();
-        j["runGraphIndex"] = x.get_run_graph_index();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_edge_traversals()))
+            j["edgeTraversals"] = x.get_edge_traversals();
+        if (is_obj_valid(x.get_immutable_state()))
+            j["immutableState"] = x.get_immutable_state();
+        if (is_obj_valid(x.get_initial_state()))
+            j["initialState"] = x.get_initial_state();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_result_graph_index()))
+            j["resultGraphIndex"] = x.get_result_graph_index();
+        if (is_obj_valid(x.get_run_graph_index()))
+            j["runGraphIndex"] = x.get_run_graph_index();
     }
 
     inline void from_json(const json & j, libsarif::ResultProvenance& x) {
@@ -5470,13 +5767,20 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ResultProvenance & x) {
         j = json::object();
-        j["conversionSources"] = x.get_conversion_sources();
-        j["firstDetectionRunGuid"] = x.get_first_detection_run_guid();
-        j["firstDetectionTimeUtc"] = x.get_first_detection_time_utc();
-        j["invocationIndex"] = x.get_invocation_index();
-        j["lastDetectionRunGuid"] = x.get_last_detection_run_guid();
-        j["lastDetectionTimeUtc"] = x.get_last_detection_time_utc();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_conversion_sources()))
+            j["conversionSources"] = x.get_conversion_sources();
+        if (is_obj_valid(x.get_first_detection_run_guid()))
+            j["firstDetectionRunGuid"] = x.get_first_detection_run_guid();
+        if (is_obj_valid(x.get_first_detection_time_utc()))
+            j["firstDetectionTimeUtc"] = x.get_first_detection_time_utc();
+        if (is_obj_valid(x.get_invocation_index()))
+            j["invocationIndex"] = x.get_invocation_index();
+        if (is_obj_valid(x.get_last_detection_run_guid()))
+            j["lastDetectionRunGuid"] = x.get_last_detection_run_guid();
+        if (is_obj_valid(x.get_last_detection_time_utc()))
+            j["lastDetectionTimeUtc"] = x.get_last_detection_time_utc();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::Suppression& x) {
@@ -5490,12 +5794,18 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Suppression & x) {
         j = json::object();
-        j["guid"] = x.get_guid();
-        j["justification"] = x.get_justification();
-        j["kind"] = x.get_kind();
-        j["location"] = x.get_location();
-        j["properties"] = x.get_properties();
-        j["state"] = x.get_state();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_justification()))
+            j["justification"] = x.get_justification();
+        if (is_obj_valid(x.get_kind()))
+            j["kind"] = x.get_kind();
+        if (is_obj_valid(x.get_location()))
+            j["location"] = x.get_location();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_state()))
+            j["state"] = x.get_state();
     }
 
     inline void from_json(const json & j, libsarif::Result& x) {
@@ -5533,36 +5843,66 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Result & x) {
         j = json::object();
-        j["analysisTarget"] = x.get_analysis_target();
-        j["attachments"] = x.get_attachments();
-        j["baselineState"] = x.get_baseline_state();
-        j["codeFlows"] = x.get_code_flows();
-        j["correlationGuid"] = x.get_correlation_guid();
-        j["fingerprints"] = x.get_fingerprints();
-        j["fixes"] = x.get_fixes();
-        j["graphs"] = x.get_graphs();
-        j["graphTraversals"] = x.get_graph_traversals();
-        j["guid"] = x.get_guid();
-        j["hostedViewerUri"] = x.get_hosted_viewer_uri();
-        j["kind"] = x.get_kind();
-        j["level"] = x.get_level();
-        j["locations"] = x.get_locations();
-        j["message"] = x.get_message();
-        j["occurrenceCount"] = x.get_occurrence_count();
-        j["partialFingerprints"] = x.get_partial_fingerprints();
-        j["properties"] = x.get_properties();
-        j["provenance"] = x.get_provenance();
-        j["rank"] = x.get_rank();
-        j["relatedLocations"] = x.get_related_locations();
-        j["rule"] = x.get_rule();
-        j["ruleId"] = x.get_rule_id();
-        j["ruleIndex"] = x.get_rule_index();
-        j["stacks"] = x.get_stacks();
-        j["suppressions"] = x.get_suppressions();
-        j["taxa"] = x.get_taxa();
-        j["webRequest"] = x.get_web_request();
-        j["webResponse"] = x.get_web_response();
-        j["workItemUris"] = x.get_work_item_uris();
+        if (is_obj_valid(x.get_analysis_target()))
+            j["analysisTarget"] = x.get_analysis_target();
+        if (is_obj_valid(x.get_attachments()))
+            j["attachments"] = x.get_attachments();
+        if (is_obj_valid(x.get_baseline_state()))
+            j["baselineState"] = x.get_baseline_state();
+        if (is_obj_valid(x.get_code_flows()))
+            j["codeFlows"] = x.get_code_flows();
+        if (is_obj_valid(x.get_correlation_guid()))
+            j["correlationGuid"] = x.get_correlation_guid();
+        if (is_obj_valid(x.get_fingerprints()))
+            j["fingerprints"] = x.get_fingerprints();
+        if (is_obj_valid(x.get_fixes()))
+            j["fixes"] = x.get_fixes();
+        if (is_obj_valid(x.get_graphs()))
+            j["graphs"] = x.get_graphs();
+        if (is_obj_valid(x.get_graph_traversals()))
+            j["graphTraversals"] = x.get_graph_traversals();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_hosted_viewer_uri()))
+            j["hostedViewerUri"] = x.get_hosted_viewer_uri();
+        if (is_obj_valid(x.get_kind()))
+            j["kind"] = x.get_kind();
+        if (is_obj_valid(x.get_level()))
+            j["level"] = x.get_level();
+        if (is_obj_valid(x.get_locations()))
+            j["locations"] = x.get_locations();
+        if (is_obj_valid(x.get_message()))
+            j["message"] = x.get_message();
+        if (is_obj_valid(x.get_occurrence_count()))
+            j["occurrenceCount"] = x.get_occurrence_count();
+        if (is_obj_valid(x.get_partial_fingerprints()))
+            j["partialFingerprints"] = x.get_partial_fingerprints();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_provenance()))
+            j["provenance"] = x.get_provenance();
+        if (is_obj_valid(x.get_rank()))
+            j["rank"] = x.get_rank();
+        if (is_obj_valid(x.get_related_locations()))
+            j["relatedLocations"] = x.get_related_locations();
+        if (is_obj_valid(x.get_rule()))
+            j["rule"] = x.get_rule();
+        if (is_obj_valid(x.get_rule_id()))
+            j["ruleId"] = x.get_rule_id();
+        if (is_obj_valid(x.get_rule_index()))
+            j["ruleIndex"] = x.get_rule_index();
+        if (is_obj_valid(x.get_stacks()))
+            j["stacks"] = x.get_stacks();
+        if (is_obj_valid(x.get_suppressions()))
+            j["suppressions"] = x.get_suppressions();
+        if (is_obj_valid(x.get_taxa()))
+            j["taxa"] = x.get_taxa();
+        if (is_obj_valid(x.get_web_request()))
+            j["webRequest"] = x.get_web_request();
+        if (is_obj_valid(x.get_web_response()))
+            j["webResponse"] = x.get_web_response();
+        if (is_obj_valid(x.get_work_item_uris()))
+            j["workItemUris"] = x.get_work_item_uris();
     }
 
     inline void from_json(const json & j, libsarif::ExternalProperties& x) {
@@ -5591,27 +5931,48 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ExternalProperties & x) {
         j = json::object();
-        j["addresses"] = x.get_addresses();
-        j["artifacts"] = x.get_artifacts();
-        j["conversion"] = x.get_conversion();
-        j["driver"] = x.get_driver();
-        j["extensions"] = x.get_extensions();
-        j["externalizedProperties"] = x.get_externalized_properties();
-        j["graphs"] = x.get_graphs();
-        j["guid"] = x.get_guid();
-        j["invocations"] = x.get_invocations();
-        j["logicalLocations"] = x.get_logical_locations();
-        j["policies"] = x.get_policies();
-        j["properties"] = x.get_properties();
-        j["results"] = x.get_results();
-        j["runGuid"] = x.get_run_guid();
-        j["schema"] = x.get_schema();
-        j["taxonomies"] = x.get_taxonomies();
-        j["threadFlowLocations"] = x.get_thread_flow_locations();
-        j["translations"] = x.get_translations();
-        j["version"] = x.get_version();
-        j["webRequests"] = x.get_web_requests();
-        j["webResponses"] = x.get_web_responses();
+        if (is_obj_valid(x.get_addresses()))
+            j["addresses"] = x.get_addresses();
+        if (is_obj_valid(x.get_artifacts()))
+            j["artifacts"] = x.get_artifacts();
+        if (is_obj_valid(x.get_conversion()))
+            j["conversion"] = x.get_conversion();
+        if (is_obj_valid(x.get_driver()))
+            j["driver"] = x.get_driver();
+        if (is_obj_valid(x.get_extensions()))
+            j["extensions"] = x.get_extensions();
+        if (is_obj_valid(x.get_externalized_properties()))
+            j["externalizedProperties"] = x.get_externalized_properties();
+        if (is_obj_valid(x.get_graphs()))
+            j["graphs"] = x.get_graphs();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_invocations()))
+            j["invocations"] = x.get_invocations();
+        if (is_obj_valid(x.get_logical_locations()))
+            j["logicalLocations"] = x.get_logical_locations();
+        if (is_obj_valid(x.get_policies()))
+            j["policies"] = x.get_policies();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_results()))
+            j["results"] = x.get_results();
+        if (is_obj_valid(x.get_run_guid()))
+            j["runGuid"] = x.get_run_guid();
+        if (is_obj_valid(x.get_schema()))
+            j["schema"] = x.get_schema();
+        if (is_obj_valid(x.get_taxonomies()))
+            j["taxonomies"] = x.get_taxonomies();
+        if (is_obj_valid(x.get_thread_flow_locations()))
+            j["threadFlowLocations"] = x.get_thread_flow_locations();
+        if (is_obj_valid(x.get_translations()))
+            j["translations"] = x.get_translations();
+        if (is_obj_valid(x.get_version()))
+            j["version"] = x.get_version();
+        if (is_obj_valid(x.get_web_requests()))
+            j["webRequests"] = x.get_web_requests();
+        if (is_obj_valid(x.get_web_responses()))
+            j["webResponses"] = x.get_web_responses();
     }
 
     inline void from_json(const json & j, libsarif::RunAutomationDetails& x) {
@@ -5624,11 +5985,16 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::RunAutomationDetails & x) {
         j = json::object();
-        j["correlationGuid"] = x.get_correlation_guid();
-        j["description"] = x.get_description();
-        j["guid"] = x.get_guid();
-        j["id"] = x.get_id();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_correlation_guid()))
+            j["correlationGuid"] = x.get_correlation_guid();
+        if (is_obj_valid(x.get_description()))
+            j["description"] = x.get_description();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_id()))
+            j["id"] = x.get_id();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::ExternalPropertyFileReference& x) {
@@ -5640,10 +6006,14 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ExternalPropertyFileReference & x) {
         j = json::object();
-        j["guid"] = x.get_guid();
-        j["itemCount"] = x.get_item_count();
-        j["location"] = x.get_location();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_guid()))
+            j["guid"] = x.get_guid();
+        if (is_obj_valid(x.get_item_count()))
+            j["itemCount"] = x.get_item_count();
+        if (is_obj_valid(x.get_location()))
+            j["location"] = x.get_location();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::ExternalPropertyFileReferences& x) {
@@ -5668,23 +6038,40 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::ExternalPropertyFileReferences & x) {
         j = json::object();
-        j["addresses"] = x.get_addresses();
-        j["artifacts"] = x.get_artifacts();
-        j["conversion"] = x.get_conversion();
-        j["driver"] = x.get_driver();
-        j["extensions"] = x.get_extensions();
-        j["externalizedProperties"] = x.get_externalized_properties();
-        j["graphs"] = x.get_graphs();
-        j["invocations"] = x.get_invocations();
-        j["logicalLocations"] = x.get_logical_locations();
-        j["policies"] = x.get_policies();
-        j["properties"] = x.get_properties();
-        j["results"] = x.get_results();
-        j["taxonomies"] = x.get_taxonomies();
-        j["threadFlowLocations"] = x.get_thread_flow_locations();
-        j["translations"] = x.get_translations();
-        j["webRequests"] = x.get_web_requests();
-        j["webResponses"] = x.get_web_responses();
+        if (is_obj_valid(x.get_addresses()))
+            j["addresses"] = x.get_addresses();
+        if (is_obj_valid(x.get_artifacts()))
+            j["artifacts"] = x.get_artifacts();
+        if (is_obj_valid(x.get_conversion()))
+            j["conversion"] = x.get_conversion();
+        if (is_obj_valid(x.get_driver()))
+            j["driver"] = x.get_driver();
+        if (is_obj_valid(x.get_extensions()))
+            j["extensions"] = x.get_extensions();
+        if (is_obj_valid(x.get_externalized_properties()))
+            j["externalizedProperties"] = x.get_externalized_properties();
+        if (is_obj_valid(x.get_graphs()))
+            j["graphs"] = x.get_graphs();
+        if (is_obj_valid(x.get_invocations()))
+            j["invocations"] = x.get_invocations();
+        if (is_obj_valid(x.get_logical_locations()))
+            j["logicalLocations"] = x.get_logical_locations();
+        if (is_obj_valid(x.get_policies()))
+            j["policies"] = x.get_policies();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_results()))
+            j["results"] = x.get_results();
+        if (is_obj_valid(x.get_taxonomies()))
+            j["taxonomies"] = x.get_taxonomies();
+        if (is_obj_valid(x.get_thread_flow_locations()))
+            j["threadFlowLocations"] = x.get_thread_flow_locations();
+        if (is_obj_valid(x.get_translations()))
+            j["translations"] = x.get_translations();
+        if (is_obj_valid(x.get_web_requests()))
+            j["webRequests"] = x.get_web_requests();
+        if (is_obj_valid(x.get_web_responses()))
+            j["webResponses"] = x.get_web_responses();
     }
 
     inline void from_json(const json & j, libsarif::SpecialLocations& x) {
@@ -5694,8 +6081,10 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::SpecialLocations & x) {
         j = json::object();
-        j["displayBase"] = x.get_display_base();
-        j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_display_base()))
+            j["displayBase"] = x.get_display_base();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
     }
 
     inline void from_json(const json & j, libsarif::VersionControlDetails& x) {
@@ -5710,13 +6099,20 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::VersionControlDetails & x) {
         j = json::object();
-        j["asOfTimeUtc"] = x.get_as_of_time_utc();
-        j["branch"] = x.get_branch();
-        j["mappedTo"] = x.get_mapped_to();
-        j["properties"] = x.get_properties();
-        j["repositoryUri"] = x.get_repository_uri();
-        j["revisionId"] = x.get_revision_id();
-        j["revisionTag"] = x.get_revision_tag();
+        if (is_obj_valid(x.get_as_of_time_utc()))
+            j["asOfTimeUtc"] = x.get_as_of_time_utc();
+        if (is_obj_valid(x.get_branch()))
+            j["branch"] = x.get_branch();
+        if (is_obj_valid(x.get_mapped_to()))
+            j["mappedTo"] = x.get_mapped_to();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_repository_uri()))
+            j["repositoryUri"] = x.get_repository_uri();
+        if (is_obj_valid(x.get_revision_id()))
+            j["revisionId"] = x.get_revision_id();
+        if (is_obj_valid(x.get_revision_tag()))
+            j["revisionTag"] = x.get_revision_tag();
     }
 
     inline void from_json(const json & j, libsarif::Run& x) {
@@ -5752,37 +6148,65 @@ namespace nlohmann {
 
     inline void to_json(json & j, const libsarif::Run & x) {
         j = json::object();
-        j["addresses"] = x.get_addresses();
-        j["artifacts"] = x.get_artifacts();
-        j["automationDetails"] = x.get_automation_details();
-        j["baselineGuid"] = x.get_baseline_guid();
-        j["columnKind"] = x.get_column_kind();
-        j["conversion"] = x.get_conversion();
-        j["defaultEncoding"] = x.get_default_encoding();
-        j["defaultSourceLanguage"] = x.get_default_source_language();
-        j["externalPropertyFileReferences"] = x.get_external_property_file_references();
-        j["graphs"] = x.get_graphs();
-        j["invocations"] = x.get_invocations();
-        j["language"] = x.get_language();
-        j["logicalLocations"] = x.get_logical_locations();
-        j["newlineSequences"] = x.get_newline_sequences();
-        j["originalUriBaseIds"] = x.get_original_uri_base_ids();
-        j["policies"] = x.get_policies();
-        j["properties"] = x.get_properties();
-        j["redactionTokens"] = x.get_redaction_tokens();
-        j["results"] = x.get_results();
-        j["runAggregates"] = x.get_run_aggregates();
-        j["specialLocations"] = x.get_special_locations();
-        j["taxonomies"] = x.get_taxonomies();
-        j["threadFlowLocations"] = x.get_thread_flow_locations();
-        j["tool"] = x.get_tool();
-        j["translations"] = x.get_translations();
-        j["versionControlProvenance"] = x.get_version_control_provenance();
-        j["webRequests"] = x.get_web_requests();
-        j["webResponses"] = x.get_web_responses();
+        if (is_obj_valid(x.get_addresses()))
+            j["addresses"] = x.get_addresses();
+        if (is_obj_valid(x.get_artifacts()))
+            j["artifacts"] = x.get_artifacts();
+        if (is_obj_valid(x.get_automation_details()))
+            j["automationDetails"] = x.get_automation_details();
+        if (is_obj_valid(x.get_baseline_guid()))
+            j["baselineGuid"] = x.get_baseline_guid();
+        if (is_obj_valid(x.get_column_kind()))
+            j["columnKind"] = x.get_column_kind();
+        if (is_obj_valid(x.get_conversion()))
+            j["conversion"] = x.get_conversion();
+        if (is_obj_valid(x.get_default_encoding()))
+            j["defaultEncoding"] = x.get_default_encoding();
+        if (is_obj_valid(x.get_default_source_language()))
+            j["defaultSourceLanguage"] = x.get_default_source_language();
+        if (is_obj_valid(x.get_external_property_file_references()))
+            j["externalPropertyFileReferences"] = x.get_external_property_file_references();
+        if (is_obj_valid(x.get_graphs()))
+            j["graphs"] = x.get_graphs();
+        if (is_obj_valid(x.get_invocations()))
+            j["invocations"] = x.get_invocations();
+        if (is_obj_valid(x.get_language()))
+            j["language"] = x.get_language();
+        if (is_obj_valid(x.get_logical_locations()))
+            j["logicalLocations"] = x.get_logical_locations();
+        if (is_obj_valid(x.get_newline_sequences()))
+            j["newlineSequences"] = x.get_newline_sequences();
+        if (is_obj_valid(x.get_original_uri_base_ids()))
+            j["originalUriBaseIds"] = x.get_original_uri_base_ids();
+        if (is_obj_valid(x.get_policies()))
+            j["policies"] = x.get_policies();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_redaction_tokens()))
+            j["redactionTokens"] = x.get_redaction_tokens();
+        if (is_obj_valid(x.get_results()))
+            j["results"] = x.get_results();
+        if (is_obj_valid(x.get_run_aggregates()))
+            j["runAggregates"] = x.get_run_aggregates();
+        if (is_obj_valid(x.get_special_locations()))
+            j["specialLocations"] = x.get_special_locations();
+        if (is_obj_valid(x.get_taxonomies()))
+            j["taxonomies"] = x.get_taxonomies();
+        if (is_obj_valid(x.get_thread_flow_locations()))
+            j["threadFlowLocations"] = x.get_thread_flow_locations();
+        if (is_obj_valid(x.get_tool()))
+            j["tool"] = x.get_tool();
+        if (is_obj_valid(x.get_translations()))
+            j["translations"] = x.get_translations();
+        if (is_obj_valid(x.get_version_control_provenance()))
+            j["versionControlProvenance"] = x.get_version_control_provenance();
+        if (is_obj_valid(x.get_web_requests()))
+            j["webRequests"] = x.get_web_requests();
+        if (is_obj_valid(x.get_web_responses()))
+            j["webResponses"] = x.get_web_responses();
     }
 
-    inline void from_json(const json & j, libsarif::Libsarif& x) {
+    inline void from_json(const json & j, libsarif::TopLevel& x) {
         x.set_schema(libsarif::get_optional<std::string>(j, "$schema"));
         x.set_inline_external_properties(libsarif::get_optional<std::vector<libsarif::ExternalProperties>>(j, "inlineExternalProperties"));
         x.set_properties(libsarif::get_optional<libsarif::PropertyBag>(j, "properties"));
@@ -5790,13 +6214,17 @@ namespace nlohmann {
         x.set_version(j.at("version").get<libsarif::Version>());
     }
 
-    inline void to_json(json & j, const libsarif::Libsarif & x) {
+    inline void to_json(json & j, const libsarif::TopLevel & x) {
         j = json::object();
         j["$schema"] = x.get_schema();
-        j["inlineExternalProperties"] = x.get_inline_external_properties();
-        j["properties"] = x.get_properties();
-        j["runs"] = x.get_runs();
-        j["version"] = x.get_version();
+        if (is_obj_valid(x.get_inline_external_properties()))
+            j["inlineExternalProperties"] = x.get_inline_external_properties();
+        if (is_obj_valid(x.get_properties()))
+            j["properties"] = x.get_properties();
+        if (is_obj_valid(x.get_runs()))
+            j["runs"] = x.get_runs();
+        if (is_obj_valid(x.get_version()))
+            j["version"] = x.get_version();
     }
 
     inline void from_json(const json & j, libsarif::Role & x) {
