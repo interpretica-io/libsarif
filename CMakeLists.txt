@@ -4,6 +4,7 @@ project(libsarif)
 
 add_subdirectory(thirdparty/nlohmann_json)
 
+set(JSON_MultipleHeaders ON)
 file (GLOB LIB_SOURCE_FILES "src/*.c")
 set(SOURCES ${LIB_SOURCE_FILES})
 
