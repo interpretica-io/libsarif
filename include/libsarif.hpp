@@ -1586,10 +1586,10 @@ namespace libsarif {
         std::shared_ptr<std::vector<ArtifactLocation>> response_files;
         std::shared_ptr<std::vector<ConfigurationOverride>> rule_configuration_overrides;
         std::shared_ptr<std::string> start_time_utc;
-        std::shared_ptr<ArtifactLocation> stderr;
-        std::shared_ptr<ArtifactLocation> stdin;
-        std::shared_ptr<ArtifactLocation> stdout;
-        std::shared_ptr<ArtifactLocation> stdout_stderr;
+        std::shared_ptr<ArtifactLocation> stderr_;
+        std::shared_ptr<ArtifactLocation> stdin_;
+        std::shared_ptr<ArtifactLocation> stdout_;
+        std::shared_ptr<ArtifactLocation> stdout_stderr_;
         std::shared_ptr<std::vector<Notification>> tool_configuration_notifications;
         std::shared_ptr<std::vector<Notification>> tool_execution_notifications;
         std::shared_ptr<ArtifactLocation> working_directory;
@@ -1718,27 +1718,27 @@ namespace libsarif {
         /**
          * A file containing the standard error stream from the process that was invoked.
          */
-        std::shared_ptr<ArtifactLocation> get_stderr() const { return stderr; }
-        void set_stderr(std::shared_ptr<ArtifactLocation> value) { this->stderr = value; }
+        std::shared_ptr<ArtifactLocation> get_stderr() const { return stderr_; }
+        void set_stderr(std::shared_ptr<ArtifactLocation> value) { this->stderr_ = value; }
 
         /**
          * A file containing the standard input stream to the process that was invoked.
          */
-        std::shared_ptr<ArtifactLocation> get_stdin() const { return stdin; }
-        void set_stdin(std::shared_ptr<ArtifactLocation> value) { this->stdin = value; }
+        std::shared_ptr<ArtifactLocation> get_stdin() const { return stdin_; }
+        void set_stdin(std::shared_ptr<ArtifactLocation> value) { this->stdin_ = value; }
 
         /**
          * A file containing the standard output stream from the process that was invoked.
          */
-        std::shared_ptr<ArtifactLocation> get_stdout() const { return stdout; }
-        void set_stdout(std::shared_ptr<ArtifactLocation> value) { this->stdout = value; }
+        std::shared_ptr<ArtifactLocation> get_stdout() const { return stdout_; }
+        void set_stdout(std::shared_ptr<ArtifactLocation> value) { this->stdout_ = value; }
 
         /**
          * A file containing the interleaved standard output and standard error stream from the
          * process that was invoked.
          */
-        std::shared_ptr<ArtifactLocation> get_stdout_stderr() const { return stdout_stderr; }
-        void set_stdout_stderr(std::shared_ptr<ArtifactLocation> value) { this->stdout_stderr = value; }
+        std::shared_ptr<ArtifactLocation> get_stdout_stderr() const { return stdout_stderr_; }
+        void set_stdout_stderr(std::shared_ptr<ArtifactLocation> value) { this->stdout_stderr_ = value; }
 
         /**
          * A list of conditions detected by the tool that are relevant to the tool's configuration.
