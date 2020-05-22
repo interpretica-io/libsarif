@@ -2,11 +2,7 @@ cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
 project(libsarif)
 
-add_subdirectory(thirdparty/nlohmann_json)
-
-set(JSON_MultipleHeaders ON)
-file (GLOB LIB_SOURCE_FILES "src/*.c")
-set(SOURCES ${LIB_SOURCE_FILES})
+include(thirdparty/nlohmann-json.cmake)
 
 add_library(libsarif INTERFACE)
 target_include_directories(libsarif INTERFACE include)
